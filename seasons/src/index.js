@@ -10,16 +10,15 @@ class App extends React.Component {
 
         this.state = { lat: null, errorMessage: '' };
         // Placing geolocation call here so that we don't keep calling it in render method
+        
+    }
+
+
+    componentDidMount(){
         window.navigator.geolocation.getCurrentPosition(
-            position => {
-                // WE MUST CALL setState whenever we want to change state
-                this.setState({lat: position.coords.latitude, long: position.coords.longitude});
-                
-            },
-            err => {
-                this.setState({ errorMessage: err.message })
-            }
-        )  
+            position => {this.setState({lat: position.coords.latitude, long: position.coords.longitude})},
+            err => this.setState({errorMessage: err.message})
+        )
     }
 
     // We must define the render method!
