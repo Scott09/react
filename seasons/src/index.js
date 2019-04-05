@@ -5,20 +5,21 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
 
-    constructor(props){
-        super(props);
-
-        this.state = { lat: null, errorMessage: '' };
-        // Placing geolocation call here so that we don't keep calling it in render method
-        
-    }
+    state = {lat: null, errorMessage:''};
 
 
     componentDidMount(){
         window.navigator.geolocation.getCurrentPosition(
-            position => {this.setState({lat: position.coords.latitude, long: position.coords.longitude})},
-            err => this.setState({errorMessage: err.message})
-        )
+            position => {
+                // WE MUST CALL setState whenever we want to change state
+                this.setState({lat: position.coords.latitude});
+                
+            },
+            err => {
+                this.setState({ errorMessage: err.message })
+            }
+        );
+
     }
 
     // We must define the render method!
